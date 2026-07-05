@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PropMind Стройка на базе Битрикс24 — концепт</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Helvetica Neue',Arial,'Open Sans',sans-serif}
+body{background:#eef2f4;color:#333;font-size:14px;min-height:100vh}
+/* ===== TOP BAR ===== */
+.topbar{height:60px;background:#fff;display:flex;align-items:center;padding:0 20px;gap:18px;border-bottom:1px solid #e0e5e8;position:sticky;top:0;z-index:50}
+.logo{font-weight:800;font-size:16px;color:#0b66c3;white-space:nowrap}
+.logo span{color:#39b54a}
+.search{flex:1;max-width:520px;background:#f0f4f7;border-radius:20px;padding:9px 18px;color:#9aa6b0;font-size:13px}
+.topright{margin-left:auto;display:flex;align-items:center;gap:14px;color:#7a8a99;font-size:13px}
+.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#0b66c3,#39b54a);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+/* ===== LAYOUT ===== */
+.wrap{display:flex;min-height:calc(100vh - 60px)}
+.sidebar{width:220px;background:#21374e;color:#b9c8d5;padding:14px 0;flex:none}
+.sidebar .item{padding:11px 20px;font-size:13.5px;cursor:pointer;display:flex;gap:10px;align-items:center}
+.sidebar .item:hover{background:#2a4460;color:#fff}
+.sidebar .item.on{background:#2a4460;color:#fff;border-left:3px solid #2fc7f7;padding-left:17px}
+.sidebar .item.ai{color:#7ee2a8;font-weight:700}
+.main{flex:1;padding:22px 26px;overflow-x:auto}
+h1{font-size:22px;font-weight:600;color:#333;margin-bottom:4px}
+.crumbs{font-size:12.5px;color:#9aa6b0;margin-bottom:18px}
+/* ===== TABS ===== */
+.tabs{display:flex;gap:6px;margin-bottom:20px;border-bottom:2px solid #e0e5e8}
+.tab{padding:10px 18px;font-size:13.5px;font-weight:600;color:#7a8a99;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}
+.tab.on{color:#0b66c3;border-bottom-color:#0b66c3}
+.pane{display:none}.pane.on{display:block}
+/* ===== KANBAN ===== */
+.kanban{display:flex;gap:14px;align-items:flex-start;min-width:900px}
+.kcol{flex:1;min-width:200px}
+.khead{padding:10px 14px;border-radius:8px 8px 0 0;color:#fff;font-size:13px;font-weight:700}
+.ksum{font-size:11.5px;font-weight:400;opacity:.9;display:block;margin-top:2px}
+.kbody{background:#e5ebef;border-radius:0 0 8px 8px;padding:10px;min-height:280px}
+.kcard{background:#fff;border-radius:8px;padding:12px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.08);cursor:pointer}
+.kcard b{font-size:13.5px;color:#0b66c3;display:block;margin-bottom:5px}
+.kcard .m{font-size:12px;color:#7a8a99;line-height:1.5}
+.kcard .money{font-weight:700;color:#333}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10.5px;font-weight:700;margin-top:6px}
+.bg{background:#e3f6e8;color:#2e9e4f}.by{background:#fff4dd;color:#c98a00}.br{background:#ffe3e3;color:#d63030}.bb{background:#e3f0ff;color:#0b66c3}
+/* ===== GANTT ===== */
+.gantt{background:#fff;border-radius:10px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,.08);min-width:900px}
+.grow{display:flex;align-items:center;height:40px;border-bottom:1px solid #f0f4f7}
+.gname{width:250px;flex:none;font-size:13px;padding-right:10px}
+.gname i{font-style:normal;color:#9aa6b0;font-size:11px;display:block}
+.gtrack{flex:1;position:relative;height:22px}
+.gbar{position:absolute;height:22px;border-radius:6px;font-size:10.5px;color:#fff;display:flex;align-items:center;padding:0 8px;white-space:nowrap;font-weight:600}
+.gmonths{display:flex;margin-left:250px;font-size:11px;color:#9aa6b0;padding-bottom:8px;border-bottom:2px solid #e0e5e8;margin-bottom:4px}
+.gmonths div{flex:1;text-align:center}
+.glegend{margin-top:14px;font-size:12px;color:#7a8a99;display:flex;gap:18px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+/* ===== TASK CARD ===== */
+.taskview{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}
+.tmain{flex:2;min-width:340px;background:#fff;border-radius:10px;padding:22px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.tside{flex:1;min-width:260px}
+.tmain h2{font-size:18px;font-weight:600;margin-bottom:4px}
+.tmeta{font-size:12.5px;color:#9aa6b0;margin-bottom:16px}
+.section-t{font-size:12px;font-weight:700;color:#7a8a99;text-transform:uppercase;letter-spacing:.5px;margin:18px 0 10px}
+.cl{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f4f7f9;font-size:13.5px}
+.cbox{width:18px;height:18px;border-radius:4px;border:2px solid #c9d5de;flex:none;display:flex;align-items:center;justify-content:center;font-size:11px}
+.cbox.d{background:#39b54a;border-color:#39b54a;color:#fff}
+.cl.done span{text-decoration:line-through;color:#9aa6b0}
+.cl .src{margin-left:auto;font-size:11px;color:#9aa6b0}
+.photos{display:flex;gap:10px;margin-top:6px}
+.ph{width:86px;height:64px;border-radius:8px;background:linear-gradient(135deg,#c2d4e2,#8fa9bf);display:flex;align-items:center;justify-content:center;font-size:22px}
+.comment{background:#f6f9fb;border-radius:10px;padding:12px 14px;margin-top:10px;font-size:13px}
+.comment b{color:#0b66c3}
+.comment.ai{background:#eefaf1;border-left:3px solid #39b54a}
+.scard{background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:14px}
+.scard .row{display:flex;justify-content:space-between;padding:7px 0;font-size:13px;border-bottom:1px solid #f4f7f9}
+.scard .row span:first-child{color:#9aa6b0}
+.btn{display:inline-block;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:none}
+.btn.g{background:#39b54a;color:#fff}.btn.o{background:#fff;border:1px solid #c9d5de;color:#333;margin-left:8px}
+/* ===== ROBOTS ===== */
+.robots{min-width:700px}
+.rstage{background:#fff;border-radius:10px;padding:16px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.rstage>b{font-size:14px;color:#0b66c3}
+.robot{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #f4f7f9;font-size:13px}
+.ric{width:34px;height:34px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;font-size:16px;background:#eef4f9}
+.robot .when{color:#9aa6b0;font-size:11.5px;display:block}
+.rtag{margin-left:auto;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;background:#e3f6e8;color:#2e9e4f;white-space:nowrap}
+.note{background:#fff8e6;border:1px solid #f5dfa1;border-radius:10px;padding:14px 18px;font-size:13px;margin-top:18px;line-height:1.6}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">PropMind <span>Стройка</span> <span style="color:#9aa6b0;font-weight:400;font-size:12px">· на базе Битрикс24</span></div>
+  <div class="search">🔍 Поиск по задачам, объектам, документам…</div>
+  <div class="topright"><span>вс, 5 июля · 16:45</span><div class="avatar">И</div></div>
+</div>
+
+<div class="wrap">
+  <div class="sidebar">
+    <div class="item">📰 Лента</div>
+    <div class="item">💬 Чат и звонки</div>
+    <div class="item on">✅ Задачи и Проекты</div>
+    <div class="item">📊 CRM · Объекты</div>
+    <div class="item">📁 Диск</div>
+    <div class="item">📅 Календарь</div>
+    <div class="item">🏢 Компания</div>
+    <div class="item ai">🤖 PropMind AI</div>
+  </div>
+
+  <div class="main">
+    <h1>ЖК «Северный», корпус 2</h1>
+    <div class="crumbs">Проекты → Объекты строительства → ЖК «Северный», корп. 2</div>
+
+    <div class="tabs">
+      <div class="tab on" onclick="tab(0)">Канбан объектов</div>
+      <div class="tab" onclick="tab(1)">Гант · график работ</div>
+      <div class="tab" onclick="tab(2)">Задача рабочего</div>
+      <div class="tab" onclick="tab(3)">Роботы · автоматизация</div>
+    </div>
+
+    <!-- PANE 0: KANBAN -->
+    <div class="pane on">
+      <div class="kanban">
+        <div class="kcol"><div class="khead" style="background:#55c9f2">Подготовка<span class="ksum">1 объект · 48 млн ₽</span></div><div class="kbody">
+          <div class="kcard"><b>БЦ на Ленинградке</b><div class="m">Генподряд · тендер выигран<br><span class="money">48 000 000 ₽</span></div><span class="badge bb">ПД у декомпозитора AI</span></div>
+        </div></div>
+        <div class="kcol"><div class="khead" style="background:#f7a700">Фундамент<span class="ksum">1 объект · 36 млн ₽</span></div><div class="kbody">
+          <div class="kcard"><b>Склад, Химки</b><div class="m">31% готовности · 8 рабочих<br><span class="money">36 000 000 ₽</span></div><span class="badge bg">в графике</span></div>
+        </div></div>
+        <div class="kcol"><div class="khead" style="background:#9f7fe0">Каркас<span class="ksum">0 объектов</span></div><div class="kbody"></div></div>
+        <div class="kcol"><div class="khead" style="background:#47c4ab">Отделка<span class="ksum">1 объект · 120 млн ₽</span></div><div class="kbody">
+          <div class="kcard"><b>ЖК «Северный», корп. 2</b><div class="m">72% готовности · 14 рабочих<br><span class="money">120 000 000 ₽</span></div><span class="badge br">🔴 расхождение материалов</span></div>
+        </div></div>
+        <div class="kcol"><div class="khead" style="background:#39b54a">Сдача<span class="ksum">1 объект · 92 млн ₽</span></div><div class="kbody">
+          <div class="kcard"><b>Паркинг, Мытищи</b><div class="m">акты подписываются<br><span class="money">92 000 000 ₽</span></div><span class="badge bg">приёмка 12.07</span></div>
+        </div></div>
+      </div>
+      <div class="note">💡 Это стандартный канбан сделок Битрикс24 — воронка «Объекты строительства». Карточки двигают роботы по данным из задач; красный бейдж поставил агент после сверки накладной.</div>
+    </div>
+
+    <!-- PANE 1: GANTT -->
+    <div class="pane">
+      <div class="gantt">
+        <div class="gmonths"><div>июль</div><div>август</div><div>сентябрь</div><div>октябрь</div></div>
+        <div class="grow"><div class="gname">Демонтаж и подготовка<i>бригада Крылова · 6 чел</i></div><div class="gtrack"><div class="gbar" style="left:0;width:14%;background:#39b54a">готово ✓</div></div></div>
+        <div class="grow"><div class="gname">Кладка перегородок<i>бригада Алиева · 8 чел</i></div><div class="gtrack"><div class="gbar" style="left:10%;width:22%;background:#39b54a">готово ✓</div></div></div>
+        <div class="grow"><div class="gname">Электрика, 1-4 этаж<i>бригада Р. Алиева · 4 чел</i></div><div class="gtrack"><div class="gbar" style="left:26%;width:24%;background:#d63030">просрочка 3 дня ⚠</div></div></div>
+        <div class="grow"><div class="gname">Штукатурка и стяжка<i>бригада Крылова · 10 чел</i></div><div class="gtrack"><div class="gbar" style="left:32%;width:30%;background:#0b66c3">идёт · 57%</div></div></div>
+        <div class="grow"><div class="gname">Сантехника<i>подряд «АкваПро»</i></div><div class="gtrack"><div class="gbar" style="left:48%;width:22%;background:#8fa9bf">ожидает</div></div></div>
+        <div class="grow"><div class="gname">Чистовая отделка<i>план по декомпозиции ПД</i></div><div class="gtrack"><div class="gbar" style="left:62%;width:30%;background:#8fa9bf">ожидает</div></div></div>
+        <div class="glegend">
+          <span><span class="dot" style="background:#39b54a"></span>выполнено</span>
+          <span><span class="dot" style="background:#0b66c3"></span>в работе</span>
+          <span><span class="dot" style="background:#d63030"></span>критический путь / просрочка</span>
+          <span><span class="dot" style="background:#8fa9bf"></span>запланировано агентом из ПД</span>
+        </div>
+      </div>
+      <div class="note">💡 Нативный Гант Битрикс24: задачи и зависимости создал агент-декомпозитор из проектной документации. Красную просрочку агент уже эскалировал Илье в Telegram.</div>
+    </div>
+
+    <!-- PANE 2: TASK -->
+    <div class="pane">
+      <div class="taskview">
+        <div class="tmain">
+          <h2>Штукатурка стен, помещение 304</h2>
+          <div class="tmeta">Проект: ЖК «Северный», корп. 2 · Этап: Отделка · Крайний срок: <b style="color:#d63030">сегодня 18:00</b></div>
+          <button class="btn g">▶ Начать выполнение</button><button class="btn o">Завершить</button>
+          <div class="section-t">Чек-лист (создан агентом из ПД)</div>
+          <div class="cl done"><div class="cbox d">✓</div><span>Подготовка поверхности, грунтовка</span><span class="src">📷 2 фото из бота</span></div>
+          <div class="cl done"><div class="cbox d">✓</div><span>Маяки, проверка уровня</span><span class="src">📷 1 фото</span></div>
+          <div class="cl"><div class="cbox"></div><span>Штукатурка 40 м² (осталось 12 м²)</span><span class="src">норма: 4 200 ₽</span></div>
+          <div class="cl"><div class="cbox"></div><span>Уборка зоны работ</span><span class="src">—</span></div>
+          <div class="section-t">Фото с объекта (загружены ботом на Диск)</div>
+          <div class="photos"><div class="ph">🧱</div><div class="ph">📐</div><div class="ph">📷</div></div>
+          <div class="section-t">Комментарии</div>
+          <div class="comment ai"><b>🤖 PropMind AI</b> · 14:02<br>Фото приняты. Объём подтверждён по разметке: 28 из 40 м². Начислено к смене: +2 940 ₽.</div>
+          <div class="comment"><b>Прораб С. Ковалёв</b> · 14:15<br>Угол у окна доработать перед чистовой.</div>
+        </div>
+        <div class="tside">
+          <div class="scard">
+            <div class="row"><span>Ответственный</span><span><b>Бригада Крылова</b></span></div>
+            <div class="row"><span>Постановщик</span><span>🤖 PropMind AI</span></div>
+            <div class="row"><span>Наблюдатель</span><span>Прораб Ковалёв</span></div>
+            <div class="row"><span>Оплата (KPI)</span><span><b>4 200 ₽</b> за задачу</span></div>
+            <div class="row"><span>Источник</span><span>ПД, раздел АР, лист 12</span></div>
+          </div>
+          <div class="scard" style="background:#eefaf1">
+            <b style="font-size:13px">🤖 Как это видит рабочий</b>
+            <p style="font-size:12.5px;color:#556;margin-top:8px;line-height:1.6">Рабочий не открывает Битрикс24. Эта же задача приходит ему в Telegram-бот в 9:00: пункты чек-листа = кнопки, фото летят сюда автоматически, в 18:00 — «заработано 4 200 ₽».</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANE 3: ROBOTS -->
+    <div class="pane">
+      <div class="robots">
+        <div class="rstage"><b>Стадия «Отделка» — роботы Битрикс24</b>
+          <div class="robot"><div class="ric">⏰</div><div>Задача без движения 3 дня → уведомить прораба + комментарий в задачу<span class="when">нативный робот B24 · триггер по активности</span></div><span class="rtag">работает</span></div>
+          <div class="robot"><div class="ric">📸</div><div>Новое фото на Диске → передать агенту на сверку объёмов<span class="when">вебхук → агентный слой (Claude Vision)</span></div><span class="rtag">работает</span></div>
+          <div class="robot"><div class="ric">🔴</div><div>Просрочка критического пути → сменить бейдж сделки + Telegram Илье<span class="when">робот B24 + вебхук</span></div><span class="rtag">работает</span></div>
+        </div>
+        <div class="rstage"><b>Приёмка материалов</b>
+          <div class="robot"><div class="ric">📦</div><div>Фото накладной из бота → сверка со спецификацией ПД → при расхождении стоп-алерт прорабу и Илье<span class="when">агентный слой · кейс «труба 3 мм вместо 5,5»</span></div><span class="rtag">работает</span></div>
+        </div>
+        <div class="rstage"><b>Ежедневные процессы</b>
+          <div class="robot"><div class="ric">🌅</div><div>9:00 — чек-листы дня рабочим в Telegram (из задач B24)<span class="when">агентный слой · cron</span></div><span class="rtag">работает</span></div>
+          <div class="robot"><div class="ric">🌇</div><div>18:00 — итог дня: KPI и заработок каждому рабочему<span class="when">агентный слой · KPI-движок</span></div><span class="rtag">работает</span></div>
+          <div class="robot"><div class="ric">📬</div><div>9:00 — дайджест Илье: объекты, деньги, просрочки, решения<span class="when">агентный слой · как отчёт ТРМ</span></div><span class="rtag">работает</span></div>
+        </div>
+      </div>
+      <div class="note">💡 Жёлтым фоном — граница ответственности: простые правила = нативные роботы Битрикс24, всё умное (сверка фото, KPI, дайджесты) = агентный слой PropMind на VPS.</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function tab(n){
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('on',i===n));
+  document.querySelectorAll('.pane').forEach((p,i)=>p.classList.toggle('on',i===n));
+}
+</script>
+</body>
+</html>
