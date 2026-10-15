@@ -1,0 +1,15 @@
+.DS_Store
+Thumbs.db
+node_modules/
+__pycache__/
+.env
+.env.*
+!.env.example
+test-results/
+playwright-report/
+*.log
+*.local.json
+artifacts/
+exports/
+private/
+propmind-evidence-*.json

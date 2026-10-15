@@ -83,13 +83,16 @@ h1{font-size:22px;font-weight:600;color:#333;margin-bottom:4px}
 .robot .when{color:#9aa6b0;font-size:11.5px;display:block}
 .rtag{margin-left:auto;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;background:#e3f6e8;color:#2e9e4f;white-space:nowrap}
 .note{background:#fff8e6;border:1px solid #f5dfa1;border-radius:10px;padding:14px 18px;font-size:13px;margin-top:18px;line-height:1.6}
+.concept-note{background:#fff7db;color:#514418;padding:14px 20px;line-height:1.7;border-bottom:1px solid #e8d48d}.concept-note a{color:#164c6a}.tab{border:0;background:transparent;font-family:inherit}.tab:focus-visible,a:focus-visible{outline:3px solid #0b66c3;outline-offset:2px}.btn:disabled{opacity:.6;cursor:default}.main{min-width:0}.tabs{overflow-x:auto}.tab{flex-shrink:0}.pane[hidden]{display:none}.kcard,.sidebar .item,.ph{cursor:default}
+@media(max-width:760px){.topbar{padding:10px 16px;height:auto;flex-wrap:wrap;gap:10px}.topright{display:none}.search{display:none}.sidebar{display:none}.main{padding:18px 14px}.tmain{min-width:0;width:100%}.tside{min-width:0;width:100%}.kanban{min-width:0;flex-direction:column}.kcol{width:100%}.kbody{min-height:40px}.taskview{display:block}.tside{margin-top:14px}.robots{min-width:0}.robot{align-items:flex-start;flex-wrap:wrap}.rtag{margin-left:46px}.cl{flex-wrap:wrap}.cl .src{margin-left:28px}.note{overflow-wrap:anywhere}}
 </style>
 </head>
 <body>
+<div class="concept-note"><a href="../">← Главная</a> · <a href="../evidence/">Evidence Register</a><br><strong>Демонстрационный концепт.</strong> Данные вымышленные. Подключения к Битрикс24, Telegram и AI нет; ниже показаны планируемые сценарии.</div>
 
 <div class="topbar">
   <div class="logo">PropMind <span>Стройка</span> <span style="color:#9aa6b0;font-weight:400;font-size:12px">· на базе Битрикс24</span></div>
-  <div class="search">🔍 Поиск по задачам, объектам, документам…</div>
+  <div class="search" aria-hidden="true">🔍 Поиск по задачам, объектам, документам…</div>
   <div class="topright"><span>вс, 5 июля · 16:45</span><div class="avatar">И</div></div>
 </div>
 
@@ -105,19 +108,19 @@ h1{font-size:22px;font-weight:600;color:#333;margin-bottom:4px}
     <div class="item ai">🤖 PropMind AI</div>
   </div>
 
-  <div class="main">
+  <main class="main">
     <h1>ЖК «Северный», корпус 2</h1>
     <div class="crumbs">Проекты → Объекты строительства → ЖК «Северный», корп. 2</div>
 
-    <div class="tabs">
-      <div class="tab on" onclick="tab(0)">Канбан объектов</div>
-      <div class="tab" onclick="tab(1)">Гант · график работ</div>
-      <div class="tab" onclick="tab(2)">Задача рабочего</div>
-      <div class="tab" onclick="tab(3)">Роботы · автоматизация</div>
+    <div class="tabs" role="tablist" aria-label="Экраны концепта">
+      <button type="button" class="tab on" role="tab" id="tab-0" aria-controls="pane-0" aria-selected="true" tabindex="0" onclick="tab(0)">Канбан объектов</button>
+      <button type="button" class="tab" role="tab" id="tab-1" aria-controls="pane-1" aria-selected="false" tabindex="-1" onclick="tab(1)">Гант · график работ</button>
+      <button type="button" class="tab" role="tab" id="tab-2" aria-controls="pane-2" aria-selected="false" tabindex="-1" onclick="tab(2)">Задача рабочего</button>
+      <button type="button" class="tab" role="tab" id="tab-3" aria-controls="pane-3" aria-selected="false" tabindex="-1" onclick="tab(3)">Роботы · автоматизация</button>
     </div>
 
     <!-- PANE 0: KANBAN -->
-    <div class="pane on">
+    <div class="pane on" role="tabpanel" id="pane-0" aria-labelledby="tab-0">
       <div class="kanban">
         <div class="kcol"><div class="khead" style="background:#55c9f2">Подготовка<span class="ksum">1 объект · 48 млн ₽</span></div><div class="kbody">
           <div class="kcard"><b>БЦ на Ленинградке</b><div class="m">Генподряд · тендер выигран<br><span class="money">48 000 000 ₽</span></div><span class="badge bb">ПД у декомпозитора AI</span></div>
@@ -133,11 +136,11 @@ h1{font-size:22px;font-weight:600;color:#333;margin-bottom:4px}
           <div class="kcard"><b>Паркинг, Мытищи</b><div class="m">акты подписываются<br><span class="money">92 000 000 ₽</span></div><span class="badge bg">приёмка 12.07</span></div>
         </div></div>
       </div>
-      <div class="note">💡 Это стандартный канбан сделок Битрикс24 — воронка «Объекты строительства». Карточки двигают роботы по данным из задач; красный бейдж поставил агент после сверки накладной.</div>
+      <div class="note">💡 Это стандартный канбан сделок Битрикс24 — воронка «Объекты строительства». Карточки двигают роботы по данным из задач; красный бейдж иллюстрирует результат будущей сверки накладной.</div>
     </div>
 
     <!-- PANE 1: GANTT -->
-    <div class="pane">
+    <div class="pane" role="tabpanel" id="pane-1" aria-labelledby="tab-1" hidden>
       <div class="gantt">
         <div class="gmonths"><div>июль</div><div>август</div><div>сентябрь</div><div>октябрь</div></div>
         <div class="grow"><div class="gname">Демонтаж и подготовка<i>бригада Крылова · 6 чел</i></div><div class="gtrack"><div class="gbar" style="left:0;width:14%;background:#39b54a">готово ✓</div></div></div>
@@ -153,16 +156,16 @@ h1{font-size:22px;font-weight:600;color:#333;margin-bottom:4px}
           <span><span class="dot" style="background:#8fa9bf"></span>запланировано агентом из ПД</span>
         </div>
       </div>
-      <div class="note">💡 Нативный Гант Битрикс24: задачи и зависимости создал агент-декомпозитор из проектной документации. Красную просрочку агент уже эскалировал Илье в Telegram.</div>
+      <div class="note">💡 Нативный Гант Битрикс24: в этом макете показано, как агент сможет создавать задачи и зависимости из проектной документации и сообщать о просрочках.</div>
     </div>
 
     <!-- PANE 2: TASK -->
-    <div class="pane">
+    <div class="pane" role="tabpanel" id="pane-2" aria-labelledby="tab-2" hidden>
       <div class="taskview">
         <div class="tmain">
           <h2>Штукатурка стен, помещение 304</h2>
           <div class="tmeta">Проект: ЖК «Северный», корп. 2 · Этап: Отделка · Крайний срок: <b style="color:#d63030">сегодня 18:00</b></div>
-          <button class="btn g">▶ Начать выполнение</button><button class="btn o">Завершить</button>
+          <button class="btn g" disabled title="Демонстрационный элемент">▶ Начать выполнение</button><button class="btn o" disabled title="Демонстрационный элемент">Завершить</button>
           <div class="section-t">Чек-лист (создан агентом из ПД)</div>
           <div class="cl done"><div class="cbox d">✓</div><span>Подготовка поверхности, грунтовка</span><span class="src">📷 2 фото из бота</span></div>
           <div class="cl done"><div class="cbox d">✓</div><span>Маяки, проверка уровня</span><span class="src">📷 1 фото</span></div>
@@ -191,33 +194,34 @@ h1{font-size:22px;font-weight:600;color:#333;margin-bottom:4px}
     </div>
 
     <!-- PANE 3: ROBOTS -->
-    <div class="pane">
+    <div class="pane" role="tabpanel" id="pane-3" aria-labelledby="tab-3" hidden>
       <div class="robots">
         <div class="rstage"><b>Стадия «Отделка» — роботы Битрикс24</b>
-          <div class="robot"><div class="ric">⏰</div><div>Задача без движения 3 дня → уведомить прораба + комментарий в задачу<span class="when">нативный робот B24 · триггер по активности</span></div><span class="rtag">работает</span></div>
-          <div class="robot"><div class="ric">📸</div><div>Новое фото на Диске → передать агенту на сверку объёмов<span class="when">вебхук → агентный слой (Claude Vision)</span></div><span class="rtag">работает</span></div>
-          <div class="robot"><div class="ric">🔴</div><div>Просрочка критического пути → сменить бейдж сделки + Telegram Илье<span class="when">робот B24 + вебхук</span></div><span class="rtag">работает</span></div>
+          <div class="robot"><div class="ric">⏰</div><div>Задача без движения 3 дня → уведомить прораба + комментарий в задачу<span class="when">нативный робот B24 · триггер по активности</span></div><span class="rtag">сценарий</span></div>
+          <div class="robot"><div class="ric">📸</div><div>Новое фото на Диске → передать агенту на сверку объёмов<span class="when">вебхук → агентный слой (Claude Vision)</span></div><span class="rtag">сценарий</span></div>
+          <div class="robot"><div class="ric">🔴</div><div>Просрочка критического пути → сменить бейдж сделки + Telegram Илье<span class="when">робот B24 + вебхук</span></div><span class="rtag">сценарий</span></div>
         </div>
         <div class="rstage"><b>Приёмка материалов</b>
-          <div class="robot"><div class="ric">📦</div><div>Фото накладной из бота → сверка со спецификацией ПД → при расхождении стоп-алерт прорабу и Илье<span class="when">агентный слой · кейс «труба 3 мм вместо 5,5»</span></div><span class="rtag">работает</span></div>
+          <div class="robot"><div class="ric">📦</div><div>Фото накладной из бота → сверка со спецификацией ПД → при расхождении стоп-алерт прорабу и Илье<span class="when">агентный слой · кейс «труба 3 мм вместо 5,5»</span></div><span class="rtag">сценарий</span></div>
         </div>
         <div class="rstage"><b>Ежедневные процессы</b>
-          <div class="robot"><div class="ric">🌅</div><div>9:00 — чек-листы дня рабочим в Telegram (из задач B24)<span class="when">агентный слой · cron</span></div><span class="rtag">работает</span></div>
-          <div class="robot"><div class="ric">🌇</div><div>18:00 — итог дня: KPI и заработок каждому рабочему<span class="when">агентный слой · KPI-движок</span></div><span class="rtag">работает</span></div>
-          <div class="robot"><div class="ric">📬</div><div>9:00 — дайджест Илье: объекты, деньги, просрочки, решения<span class="when">агентный слой · как отчёт ТРМ</span></div><span class="rtag">работает</span></div>
+          <div class="robot"><div class="ric">🌅</div><div>9:00 — чек-листы дня рабочим в Telegram (из задач B24)<span class="when">агентный слой · cron</span></div><span class="rtag">сценарий</span></div>
+          <div class="robot"><div class="ric">🌇</div><div>18:00 — итог дня: KPI и заработок каждому рабочему<span class="when">агентный слой · KPI-движок</span></div><span class="rtag">сценарий</span></div>
+          <div class="robot"><div class="ric">📬</div><div>9:00 — дайджест Илье: объекты, деньги, просрочки, решения<span class="when">агентный слой · как отчёт ТРМ</span></div><span class="rtag">сценарий</span></div>
         </div>
       </div>
       <div class="note">💡 Жёлтым фоном — граница ответственности: простые правила = нативные роботы Битрикс24, всё умное (сверка фото, KPI, дайджесты) = агентный слой PropMind на VPS.</div>
     </div>
 
-  </div>
+  </main>
 </div>
 
 <script>
 function tab(n){
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('on',i===n));
-  document.querySelectorAll('.pane').forEach((p,i)=>p.classList.toggle('on',i===n));
+  document.querySelectorAll('.tab').forEach((t,i)=>{t.classList.toggle('on',i===n);t.setAttribute('aria-selected',String(i===n));t.tabIndex=i===n?0:-1;});
+  document.querySelectorAll('.pane').forEach((p,i)=>{p.classList.toggle('on',i===n);p.hidden=i!==n;});
 }
+document.querySelector('.tabs').addEventListener('keydown',event=>{const tabs=[...document.querySelectorAll('.tab')];let n=tabs.indexOf(document.activeElement);if(n<0)return;if(event.key==='ArrowRight')n=(n+1)%tabs.length;else if(event.key==='ArrowLeft')n=(n+tabs.length-1)%tabs.length;else if(event.key==='Home')n=0;else if(event.key==='End')n=tabs.length-1;else return;event.preventDefault();tab(n);tabs[n].focus();});
 </script>
 </body>
 </html>

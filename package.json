@@ -1,0 +1,13 @@
+{
+  "name": "propmind-design",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "PropMind workspace and a manual Evidence Register pilot",
+  "scripts": {
+    "test": "node --test tests/registry.test.mjs",
+    "check": "python3 scripts/check_site.py",
+    "serve": "python3 scripts/serve.py"
+  },
+  "engines": { "node": ">=22" }
+}

@@ -1,0 +1,21 @@
+name: Ошибка
+description: Воспроизводимая ошибка в интерфейсе или данных
+title: "Ошибка: "
+body:
+  - type: textarea
+    id: steps
+    attributes:
+      label: Как воспроизвести
+      description: Страница, действия и фактический результат. Для локального реестра не прикладывайте конфиденциальные данные.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Ожидаемый результат
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Устройство и браузер

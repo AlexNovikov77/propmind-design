@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Пилот доказательного реестра замечаний PropMind для PDF и IFC: ручная регистрация, подтверждение человеком, импорт и экспорт JSON.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>Evidence Register — PropMind</title>
+  <link rel="stylesheet" href="../assets/site.css">
+  <script type="module" src="../assets/evidence.mjs"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Перейти к содержимому</a>
+  <header class="site-header"><div class="container header-inner"><a class="brand" href="../"><span class="brand-mark" aria-hidden="true">p.</span>PropMind</a><nav class="topnav" aria-label="Основная навигация"><a href="../">Главная</a><a href="./" aria-current="page">Реестр замечаний</a><a class="github-nav" href="https://github.com/AlexNovikov77/propmind-design">GitHub ↗</a></nav></div></header>
+  <main id="main" class="container">
+    <div class="page-heading"><div><div class="eyebrow">PDF Scan + IFC Deep Check</div><h1>Evidence Register</h1><p class="intro">Единый реестр замечаний: от исходного фрагмента до проверенного решения.</p></div><div class="actions"><button id="add-finding" class="button primary" type="button">+ Новое замечание</button></div></div>
+    <div class="local-note"><strong>Локальный пилот.</strong> Реестр сохраняется только в этом браузере на этом устройстве. Экспортируйте JSON для резервной копии и переноса. Исходные PDF/IFC не загружаются; автоматическая проверка и совместный доступ ещё не подключены.</div>
+    <noscript><p class="notice error">Для работы реестра включите JavaScript. Главная страница и концепты доступны без него.</p></noscript>
+    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+    <section class="stats-grid" aria-label="Сводка по всему реестру"><div class="stat-card"><strong id="total-count">0</strong><span>Всего замечаний</span></div><div class="stat-card"><strong id="draft-count">0</strong><span>Требуют проверки</span></div><div class="stat-card"><strong id="critical-count">0</strong><span>Критичных открытых</span></div><div class="stat-card"><strong id="resolved-count">0</strong><span>Устранено</span></div></section>
+    <section class="filters" aria-label="Поиск и фильтры">
+      <label>Поиск<input id="search" type="search" maxlength="200" placeholder="Замечание, объект, источник, ответственный…"></label>
+      <label>Контур<select id="pipeline-filter"><option value="">Все контуры</option><option>PDF Scan</option><option>IFC Deep Check</option></select></label>
+      <label>Статус<select id="status-filter"><option value="">Все статусы</option><option value="draft">Черновик</option><option value="confirmed">Подтверждено</option><option value="resolved">Устранено</option><option value="dismissed">Отклонено</option></select></label>
+      <label>Критичность<select id="severity-filter"><option value="">Любая</option><option value="critical">Критическая</option><option value="high">Высокая</option><option value="medium">Средняя</option><option value="low">Низкая</option></select></label>
+    </section>
+    <div id="table-wrap" class="table-wrap" hidden><table><caption class="count-note">Замечания с учётом фильтров</caption><thead><tr><th scope="col">Замечание / объект</th><th scope="col">Источник</th><th scope="col">Критичность</th><th scope="col">Статус</th><th scope="col">Ответственный</th></tr></thead><tbody id="findings-body"></tbody></table></div>
+    <div id="empty" class="empty"><h2 id="empty-title">Первое замечание — начало реестра</h2><p id="empty-description">Создайте запись по PDF или IFC. Источник и координаты можно уточнить в черновике до подтверждения.</p><div class="actions"><button id="empty-add" class="button primary" type="button">Создать замечание</button><button id="add-examples" class="button" type="button">Добавить учебные примеры</button></div></div>
+    <div class="bottom-tools"><span id="result-count" class="count-note" aria-live="polite">Показано 0 из 0</span><div class="actions"><button id="export-json" class="button small" type="button">Экспорт JSON</button><button id="import-json" class="button small" type="button">Импорт JSON</button><button id="restore-backup" class="button small quiet" type="button" hidden>Вернуть копию до импорта</button></div></div>
+  </main>
+  <footer class="footer"><div class="container footer-inner"><span>Ручное подтверждение · история решений · JSON v1</span><a href="https://github.com/AlexNovikov77/propmind-design/blob/main/docs/ARCHITECTURE.md">Как устроен пилот ↗</a></div></footer>
+  <dialog id="finding-dialog" aria-labelledby="finding-heading"><form id="finding-form">
+    <div class="dialog-head"><h2 id="finding-heading">Новое замечание</h2><button type="button" class="close-button" data-close="finding-dialog" aria-label="Закрыть форму">×</button></div>
+    <div class="dialog-body"><div id="finding-error" class="form-error" role="alert" hidden></div>
+      <div class="form-grid">
+        <label class="full">Замечание *<input name="title" required maxlength="200" placeholder="Какое несоответствие обнаружено?"></label>
+        <label>Объект *<input name="project" required maxlength="160" placeholder="Название объекта или проекта"></label>
+        <label>Контур<select name="pipeline"><option>PDF Scan</option><option>IFC Deep Check</option></select></label>
+        <label>Критичность<select name="severity"><option value="medium">Средняя</option><option value="critical">Критическая</option><option value="high">Высокая</option><option value="low">Низкая</option></select></label>
+        <label>Ответственный<input name="owner" maxlength="160" placeholder="Имя или роль"></label>
+        <label>Исходный файл<input name="sourceFile" maxlength="240" placeholder="Например, ОВ_план_3этаж.pdf"></label>
+        <label>Ревизия / версия<input name="revision" maxlength="100" placeholder="Например, R02 от 15.10.2026"></label>
+        <label class="full">Исходный фрагмент / описание доказательства<textarea name="excerpt" maxlength="4000" placeholder="Выдержка из документа или описание элемента модели. Исходный файл хранится отдельно."></textarea></label>
+      </div>
+      <fieldset id="pdf-location" class="form-section"><legend>Привязка к PDF</legend><div class="coords"><label>Страница<input name="pdfPage" type="number" min="1" step="1"></label><label>X, %<input name="pdfX" type="number" min="0" max="100" step="any"></label><label>Y, %<input name="pdfY" type="number" min="0" max="100" step="any"></label><label>Ширина, %<input name="pdfWidth" type="number" min="0" max="100" step="any"></label><label>Высота, %<input name="pdfHeight" type="number" min="0" max="100" step="any"></label></div><p class="help">X и Y — левый верхний угол области на видимой странице; координаты и размеры в процентах. Страницы считаются с 1.</p></fieldset>
+      <fieldset id="ifc-location" class="form-section" hidden disabled><legend>Привязка к IFC</legend><label>IFC GlobalId<input name="ifcGlobalId" maxlength="100" placeholder="Идентификатор элемента из исходной модели"></label><div class="coords ifc"><label>X, м<input name="ifcX" type="number" step="any"></label><label>Y, м<input name="ifcY" type="number" step="any"></label><label>Z, м<input name="ifcZ" type="number" step="any"></label></div><p class="help">В системе координат исходной модели. Пересчитайте единицы в метры; географические координаты здесь не используются.</p></fieldset>
+      <p class="form-hint">* Обязательные поля для черновика. Для подтверждения также нужны ответственный, источник, ревизия, фрагмент и полная привязка. Изменение проверенной записи возвращает её в черновик.</p>
+    </div><div class="dialog-actions"><button type="button" class="button" data-close="finding-dialog">Отмена</button><button type="submit" class="button primary">Сохранить замечание</button></div>
+  </form></dialog>
+  <dialog id="detail-dialog" aria-labelledby="detail-title">
+    <div class="dialog-head"><h2 id="detail-title">Замечание</h2><button class="close-button" type="button" data-close="detail-dialog" aria-label="Закрыть карточку">×</button></div>
+    <div class="dialog-body"><div id="detail-error" class="form-error" role="alert" hidden></div><div id="detail-content"></div>
+      <div class="review-box"><h3>Решение по замечанию</h3><div class="form-grid"><label>Кто проверяет<input id="reviewer" maxlength="160" placeholder="Имя проверяющего"></label><label>Комментарий<input id="review-note" maxlength="2000" placeholder="Обязателен для закрытия и возврата"></label></div><div id="review-actions" class="actions"></div><p class="help">Проверяющий указывается вручную. В пилоте нет входа в аккаунт и проверки личности.</p></div>
+      <details class="form-section"><summary>История изменений</summary><ol id="history-list" class="history"></ol></details>
+    </div><div class="dialog-actions"><button id="edit-finding" class="button" type="button">Редактировать</button><button class="button primary" type="button" data-close="detail-dialog">Закрыть</button></div>
+  </dialog>
+  <dialog id="import-dialog" aria-labelledby="import-heading">
+    <div class="dialog-head"><h2 id="import-heading">Импорт реестра</h2><button class="close-button" type="button" data-close="import-dialog" aria-label="Закрыть импорт">×</button></div>
+    <div class="dialog-body"><div id="import-error" class="form-error" role="alert" hidden></div><label>JSON-файл реестра PropMind<input id="import-file" type="file" accept=".json,application/json"></label><div id="import-preview" class="import-preview"><p>Импорт заменяет текущий реестр целиком. Перед заменой будет сохранена одна локальная копия; дополнительно экспортируйте JSON.</p></div></div>
+    <div class="dialog-actions"><button class="button" type="button" data-close="import-dialog">Отмена</button><button id="confirm-import" class="button primary" type="button" disabled>Заменить реестр</button></div>
+  </dialog>
+</body>
+</html>
