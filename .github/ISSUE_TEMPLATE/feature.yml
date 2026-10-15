@@ -1,0 +1,23 @@
+name: Доработка продукта
+description: Проблема пользователя, результат и проверка ценности
+labels: [enhancement]
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Пользователь и нужный результат
+      description: Кто использует функцию и какую работу она упрощает?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Критерии приёмки и метрика
+      description: Наблюдаемый результат, данные для проверки, владелец приёмки.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Границы, зависимости и риск
+      description: Что входит в этот PR? Какие нужны данные, доступы и изменения эксплуатации?

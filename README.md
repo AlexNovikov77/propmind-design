@@ -17,7 +17,7 @@
 
 ## Запуск
 
-Нужны Python 3.10+ и Node.js 22+. Зависимостей приложения и этапа сборки нет.
+Нужны Python 3.10+ и Node.js 22+. У приложения нет runtime-зависимостей и этапа сборки. Playwright — dev-зависимость браузерных проверок, закреплённая в package-lock.json.
 
     git clone https://github.com/AlexNovikov77/propmind-design.git
     cd propmind-design
@@ -56,10 +56,10 @@
 
 Первый шаг проверяет правила статусов, доказательств и безопасного импорта. Второй — четыре HTML-страницы, локальные ссылки, якоря и синтаксис JavaScript. Workflow Validate site запускает эти проверки и браузерный сценарий для PR и main.
 
-Для проверки в настоящем браузере дополнительно установить Playwright только для разработки:
+Для проверки в настоящем браузере установить dev-зависимости из lock-файла:
 
-    npm install --no-save --package-lock=false playwright@1.64.1
-    npx playwright install chromium
+    npm ci --ignore-scripts
+    npx --no-install playwright install chromium
     python3 scripts/serve.py
 
 В другом терминале:
@@ -76,5 +76,6 @@
 - [Архитектура и формат данных](docs/ARCHITECTURE.md)
 - [Правила изменений](CONTRIBUTING.md)
 - [Изменения версий](CHANGELOG.md)
+- [Владельцы, приёмка и релизы](docs/DEVELOPMENT.md)
 
 Код интерфейса находится в assets/, а правила реестра — в независимом модуле assets/registry.mjs. Оба исходных концепта сохранены; адрес /b24/ остался прежним.

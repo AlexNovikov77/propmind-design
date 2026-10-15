@@ -7,7 +7,9 @@
   "scripts": {
     "test": "node --test tests/registry.test.mjs",
     "check": "python3 scripts/check_site.py",
-    "serve": "python3 scripts/serve.py"
+    "serve": "python3 scripts/serve.py",
+    "test:browser": "node scripts/browser-smoke.mjs"
   },
-  "engines": { "node": ">=22" }
+  "engines": { "node": ">=22" },
+  "devDependencies": { "playwright": "1.64.1" }
 }

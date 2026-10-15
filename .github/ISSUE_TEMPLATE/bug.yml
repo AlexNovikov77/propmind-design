@@ -1,0 +1,24 @@
+name: Ошибка
+description: Наблюдаемое поведение и воспроизведение без рабочих данных
+labels: [bug]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Проблема и влияние
+      description: Какой результат ожидался и что произошло? Без токенов и данных клиентов.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Воспроизведение и версия
+      description: SHA, команда, обезличенный пример, ожидаемый результат.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Критерии исправления
+    validations:
+      required: true
