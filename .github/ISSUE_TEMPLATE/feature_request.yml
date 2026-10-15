@@ -1,0 +1,23 @@
+name: Доработка
+description: Конкретный результат для пользователя
+title: "Доработка: "
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Задача пользователя
+      description: Кто, в какой ситуации и что должен получить?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Критерии приёмки
+      description: Как проверить, что задача выполнена?
+    validations:
+      required: true
+  - type: textarea
+    id: boundaries
+    attributes:
+      label: Данные и ограничения
+      description: Источники, интеграции и то, что требует отдельного решения.

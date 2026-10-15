@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PropMind Стройка — UI «Жидкое стекло»</title>
+<style>
+:root{
+  --bg1:#05070f; --bg2:#0a1224; --bg3:#101a35;
+  --glass:rgba(255,255,255,.06); --glass-brd:rgba(255,255,255,.14);
+  --txt:#eef2ff; --txt2:rgba(238,242,255,.55);
+  --acc:#4cc2ff; --acc2:#7c5cff; --ok:#3ddc84; --warn:#ffb020; --bad:#ff5d5d;
+  --shadow:0 20px 60px rgba(0,0,0,.55);
+}
+body.light{
+  --bg1:#dfe9f5; --bg2:#e9eef9; --bg3:#f4f7fd;
+  --glass:rgba(255,255,255,.55); --glass-brd:rgba(255,255,255,.8);
+  --txt:#0d1b33; --txt2:rgba(13,27,51,.55);
+  --shadow:0 20px 50px rgba(70,100,160,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Inter','Manrope',-apple-system,sans-serif}
+body{
+  min-height:100vh;color:var(--txt);
+  background:radial-gradient(1200px 800px at 15% -10%,var(--bg3),transparent),
+             radial-gradient(1000px 700px at 110% 30%,#1b1240 0%,transparent 60%),
+             linear-gradient(160deg,var(--bg1),var(--bg2));
+  background-attachment:fixed;
+  padding:40px 24px 80px;transition:.4s;
+}
+body.light{background:radial-gradient(1200px 800px at 15% -10%,#fff,transparent),
+             radial-gradient(1000px 700px at 110% 30%,#cfd9ff 0%,transparent 60%),
+             linear-gradient(160deg,var(--bg1),var(--bg2));background-attachment:fixed}
+/* floating blobs */
+.blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.5;z-index:0;pointer-events:none}
+.b1{width:420px;height:420px;background:#2563eb;top:-120px;left:-80px}
+.b2{width:360px;height:360px;background:#7c3aed;bottom:-100px;right:-60px}
+.b3{width:280px;height:280px;background:#06b6d4;top:40%;left:45%}
+body.light .blob{opacity:.35}
+header{position:relative;z-index:2;text-align:center;margin-bottom:36px}
+header h1{font-size:26px;font-weight:800;letter-spacing:-.5px}
+header h1 span{background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+header p{color:var(--txt2);margin-top:6px;font-size:14px}
+.toggle{position:relative;z-index:2;display:flex;justify-content:center;gap:10px;margin-bottom:40px}
+.toggle button{
+  padding:10px 22px;border-radius:14px;border:1px solid var(--glass-brd);
+  background:var(--glass);color:var(--txt);font-weight:600;font-size:14px;cursor:pointer;
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);transition:.25s;
+}
+.toggle button.on{background:linear-gradient(90deg,#2563eb,#7c3aed);border-color:transparent;color:#fff;box-shadow:0 8px 24px rgba(99,102,241,.4)}
+.row{position:relative;z-index:2;display:flex;gap:36px;justify-content:center;flex-wrap:wrap}
+/* phone */
+.phone{
+  width:340px;border-radius:48px;padding:14px;
+  background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.03));
+  border:1px solid var(--glass-brd);box-shadow:var(--shadow);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+}
+.screen{
+  border-radius:38px;overflow:hidden;height:660px;position:relative;padding:22px 18px;
+  background:linear-gradient(170deg,var(--bg2),var(--bg1));
+}
+body.light .screen{background:linear-gradient(170deg,#f2f6ff,#dde7f7)}
+.notch{width:110px;height:26px;border-radius:18px;background:rgba(0,0,0,.45);margin:0 auto 18px}
+body.light .notch{background:rgba(13,27,51,.85)}
+.stitle{font-size:21px;font-weight:800;letter-spacing:-.4px;margin-bottom:2px}
+.ssub{font-size:12.5px;color:var(--txt2);margin-bottom:16px}
+.card{
+  background:var(--glass);border:1px solid var(--glass-brd);border-radius:20px;
+  padding:14px 16px;margin-bottom:12px;
+  backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12), 0 8px 24px rgba(0,0,0,.18);
+}
+/* checklist */
+.task{display:flex;align-items:center;gap:12px}
+.chk{width:26px;height:26px;border-radius:9px;flex:none;display:flex;align-items:center;justify-content:center;font-size:14px;border:1.5px solid var(--glass-brd)}
+.chk.done{background:linear-gradient(135deg,#22c55e,#16a34a);border:none;color:#fff}
+.task .t{flex:1}
+.task .t b{display:block;font-size:14px;font-weight:600}
+.task .t i{font-style:normal;font-size:11.5px;color:var(--txt2)}
+.task.done .t b{text-decoration:line-through;opacity:.55}
+.cam{width:32px;height:32px;flex:none;border-radius:10px;background:var(--glass);border:1px solid var(--glass-brd);display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer}
+/* progress ring */
+.ringwrap{display:flex;align-items:center;gap:16px}
+.ring{width:84px;height:84px;border-radius:50%;flex:none;
+  background:conic-gradient(var(--acc) 0 57%, rgba(255,255,255,.1) 57% 100%);
+  display:flex;align-items:center;justify-content:center}
+.ring::after{content:"4/7";width:62px;height:62px;border-radius:50%;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px}
+body.light .ring::after{background:#eef3fc}
+.ringwrap .info b{font-size:15px;display:block}
+.ringwrap .info span{font-size:12px;color:var(--txt2)}
+/* money */
+.big{font-size:38px;font-weight:800;letter-spacing:-1px;background:linear-gradient(90deg,var(--acc),#8be9ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+body.light .big{background:linear-gradient(90deg,#2563eb,#7c3aed);-webkit-background-clip:text;background-clip:text}
+.chart{display:flex;align-items:flex-end;gap:8px;height:110px;padding-top:10px}
+.bar{flex:1;border-radius:8px 8px 4px 4px;background:linear-gradient(180deg,var(--acc2),rgba(124,92,255,.2));position:relative}
+.bar.hi{background:linear-gradient(180deg,var(--acc),rgba(76,194,255,.25));box-shadow:0 0 18px rgba(76,194,255,.45)}
+.bar span{position:absolute;bottom:-20px;width:100%;text-align:center;font-size:10px;color:var(--txt2)}
+.stats{display:flex;gap:10px;margin-top:28px}
+.stat{flex:1;text-align:center;padding:12px 6px;border-radius:16px;background:var(--glass);border:1px solid var(--glass-brd);backdrop-filter:blur(16px)}
+.stat b{display:block;font-size:16px;font-weight:800}
+.stat span{font-size:10.5px;color:var(--txt2)}
+/* dashboard */
+.obj .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.obj .head b{font-size:14.5px}
+.pct{font-size:12px;font-weight:700;color:var(--acc)}
+.pbar{height:8px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden}
+body.light .pbar{background:rgba(13,27,51,.08)}
+.pbar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--acc),var(--acc2))}
+.alert{display:flex;gap:10px;align-items:flex-start;border-left:3px solid var(--bad)}
+.alert .ic{font-size:16px}
+.alert b{font-size:13px;display:block}
+.alert span{font-size:11.5px;color:var(--txt2)}
+.money-row{display:flex;justify-content:space-between;align-items:center}
+.money-row .l b{font-size:22px;font-weight:800;display:block}
+.money-row .l span{font-size:11.5px;color:var(--txt2)}
+.pill{padding:6px 14px;border-radius:999px;font-size:11.5px;font-weight:700;background:rgba(61,220,132,.15);color:var(--ok);border:1px solid rgba(61,220,132,.3)}
+/* bottom nav */
+.nav{position:absolute;bottom:16px;left:18px;right:18px;display:flex;justify-content:space-around;
+  padding:12px;border-radius:22px;background:var(--glass);border:1px solid var(--glass-brd);
+  backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px)}
+.nav div{font-size:18px;opacity:.45;cursor:pointer}
+.nav div.on{opacity:1;filter:drop-shadow(0 0 8px var(--acc))}
+.label{position:relative;z-index:2;text-align:center;margin-top:16px;font-size:13px;color:var(--txt2);font-weight:600}
+.rolechip{display:inline-block;margin-top:6px;padding:4px 12px;border-radius:999px;font-size:11px;font-weight:700;background:var(--glass);border:1px solid var(--glass-brd)}
+.col{display:flex;flex-direction:column;align-items:center}
+footer{position:relative;z-index:2;text-align:center;margin-top:48px;color:var(--txt2);font-size:12px}
+.project-nav{position:relative;z-index:2;text-align:center;margin-bottom:24px;line-height:1.8}.project-nav a{color:var(--txt)}
+.toggle button:focus-visible,a:focus-visible{outline:3px solid var(--acc);outline-offset:4px}
+@media(max-width:400px){body{padding:24px 12px 48px}.phone{width:min(340px,calc(100vw - 24px))}.screen{padding:22px 12px}.toggle{gap:6px}.toggle button{padding:10px 16px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+
+<nav class="project-nav" aria-label="Разделы PropMind"><a href="../../">Главная</a> · <a href="../../evidence/">Evidence Register</a> · <a href="../../b24/">Концепт Битрикс24</a></nav>
+<header>
+  <h1>PropMind <span>Стройка</span> — концепт UI</h1>
+  <p>Демонстрационный макет Mini App · все данные вымышленные · интеграции не подключены</p>
+</header>
+
+<div class="toggle">
+  <button id="btnDark" class="on" aria-pressed="true" onclick="setTheme(false)">🌙 Тёмная</button>
+  <button id="btnLight" aria-pressed="false" onclick="setTheme(true)">☀️ Светлая</button>
+</div>
+
+<div class="row">
+
+  <!-- SCREEN 1: WORKER SHIFT -->
+  <div class="col">
+    <div class="phone"><div class="screen">
+      <div class="notch"></div>
+      <div class="stitle">Моя смена</div>
+      <div class="ssub">Демонстрационный БЦ · 3 этаж · вс, 5 июля</div>
+      <div class="card ringwrap">
+        <div class="ring"></div>
+        <div class="info"><b>Смена идёт отлично</b><span>4 из 7 задач · до 18:00 ещё 3</span></div>
+      </div>
+      <div class="card task done"><div class="chk done">✓</div><div class="t"><b>Кладка перегородок, ось Б</b><i>2 фото · принято прорабом</i></div><div class="cam">📷</div></div>
+      <div class="card task done"><div class="chk done">✓</div><div class="t"><b>Приёмка: труба 5,5 мм</b><i>накладная сверена ✓</i></div><div class="cam">📷</div></div>
+      <div class="card task"><div class="chk"></div><div class="t"><b>Штукатурка стен, пом. 304</b><i>норма: 40 м² · осталось 12 м²</i></div><div class="cam">📷</div></div>
+      <div class="card task"><div class="chk"></div><div class="t"><b>Уборка зоны работ</b><i>до конца смены</i></div><div class="cam">📷</div></div>
+      <div class="nav"><div class="on">📋</div><div>💰</div><div>📦</div><div>👤</div></div>
+    </div></div>
+    <div class="label">Экран 1 — Чек-лист смены<br><span class="rolechip">👷 Рабочий</span></div>
+  </div>
+
+  <!-- SCREEN 2: EARNINGS -->
+  <div class="col">
+    <div class="phone"><div class="screen">
+      <div class="notch"></div>
+      <div class="stitle">Мой заработок</div>
+      <div class="ssub">выплаты официальные · ставки утверждены</div>
+      <div class="card">
+        <span style="font-size:12px;color:var(--txt2)">Сегодня заработано</span>
+        <div class="big">4 200 ₽</div>
+        <span style="font-size:12px;color:var(--ok);font-weight:700">↑ +18% к вчера</span>
+      </div>
+      <div class="card">
+        <span style="font-size:12px;color:var(--txt2)">Эта неделя · 26 400 ₽</span>
+        <div class="chart">
+          <div class="bar" style="height:45%"><span>пн</span></div>
+          <div class="bar" style="height:62%"><span>вт</span></div>
+          <div class="bar" style="height:38%"><span>ср</span></div>
+          <div class="bar" style="height:70%"><span>чт</span></div>
+          <div class="bar" style="height:55%"><span>пт</span></div>
+          <div class="bar hi" style="height:88%"><span>сб</span></div>
+          <div class="bar hi" style="height:64%"><span>вс</span></div>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>168</b><span>задач за месяц</span></div>
+          <div class="stat"><b>98%</b><span>принято с 1 раза</span></div>
+          <div class="stat"><b>112 800 ₽</b><span>за месяц</span></div>
+        </div>
+      </div>
+      <div class="nav"><div>📋</div><div class="on">💰</div><div>📦</div><div>👤</div></div>
+    </div></div>
+    <div class="label">Экран 2 — KPI и мотивация<br><span class="rolechip">👷 Рабочий</span></div>
+  </div>
+
+  <!-- SCREEN 3: DIRECTOR -->
+  <div class="col">
+    <div class="phone"><div class="screen">
+      <div class="notch"></div>
+      <div class="stitle">Объекты</div>
+      <div class="ssub">доброе утро, Илья · сводка на 9:00</div>
+      <div class="card money-row">
+        <div class="l"><b>2,4 млн ₽</b><span>авансы этой недели · план выполняется</span></div>
+        <div class="pill">в графике</div>
+      </div>
+      <div class="card obj">
+        <div class="head"><b>ЖК «Северный», корп. 2</b><span class="pct">72%</span></div>
+        <div class="pbar"><i style="width:72%"></i></div>
+        <span style="font-size:11.5px;color:var(--txt2)">14 рабочих · этап: отделка · срок 12.08</span>
+      </div>
+      <div class="card obj">
+        <div class="head"><b>Склад, Химки</b><span class="pct">31%</span></div>
+        <div class="pbar"><i style="width:31%"></i></div>
+        <span style="font-size:11.5px;color:var(--txt2)">8 рабочих · этап: каркас · срок 30.09</span>
+      </div>
+      <div class="card alert">
+        <div class="ic">🔴</div>
+        <div><b>Расхождение материалов</b><span>Труба 3 мм вместо 5,5 мм · накладная №482 · остановлена приёмка</span></div>
+      </div>
+      <div class="card alert" style="border-left-color:var(--warn)">
+        <div class="ic">⚠️</div>
+        <div><b>Задача без движения 3 дня</b><span>Электрика, 4 этаж · бригада Р. Алиева</span></div>
+      </div>
+      <div class="nav"><div class="on">🏗</div><div>📊</div><div>💰</div><div>⚙️</div></div>
+    </div></div>
+    <div class="label">Экран 3 — Дашборд руководителя<br><span class="rolechip">👔 Илья</span></div>
+  </div>
+
+</div>
+
+<footer>PropMind · концепт для согласования · 05.07.2026 · вариант UI: Mini App «жидкое стекло»</footer>
+
+<script>
+function setTheme(light){
+  document.body.classList.toggle('light', light);
+  document.getElementById('btnDark').classList.toggle('on', !light);
+  document.getElementById('btnLight').classList.toggle('on', light);
+  document.getElementById('btnDark').setAttribute('aria-pressed', String(!light));
+  document.getElementById('btnLight').setAttribute('aria-pressed', String(light));
+}
+</script>
+</body>
+</html>
