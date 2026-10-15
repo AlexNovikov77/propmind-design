@@ -2,9 +2,11 @@
 
 Работа ведётся в Issues. Первые две задачи созданы: [UI-пилот #1](https://github.com/AlexNovikov77/propmind-design/issues/1) и [PDF-просмотр #2](https://github.com/AlexNovikov77/propmind-design/issues/2). Остальные пункты остаются проектом очереди до уточнения зависимостей. Основной код и интеграции развиваются в приватном propmind.
 
+UI-пилот #1 завершён через PR #3, CI и публикация Pages прошли. [Инженерная настройка #4](https://github.com/AlexNovikov77/propmind-design/issues/4) вводит защищённый main, npm lock и Dependabot. Текущие статусы — в Issues; правила работы — в DEVELOPMENT.md.
+
 ## PM-001 — Рабочее пространство и Evidence Register
 
-Приоритет: первый. Состояние: реализовано в ветке chore/propmind-workspace, задача #1; перед публикацией необходимы проверки PR и main.
+Приоритет: первый. Состояние: завершено через PR #3; проверки PR/main и публикация прошли.
 
 Результат: навигация, сохранённые концепты, реестр PDF/IFC, доказательства, ручная приёмка, история, import/export, документация и CI.
 

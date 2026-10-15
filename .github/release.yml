@@ -1,0 +1,10 @@
+changelog:
+  categories:
+    - title: Исправления
+      labels: [bug]
+    - title: Возможности
+      labels: [enhancement]
+    - title: Зависимости
+      labels: [dependencies]
+    - title: Документация и инфраструктура
+      labels: ['*']
