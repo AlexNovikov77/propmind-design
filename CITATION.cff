@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use or discuss this public UI pilot, cite this repository and record the exact commit you inspected. See docs/CITING.md for scope and limitations."
+type: software
+title: "PropMind: public UI pilot and Evidence Register"
+authors:
+  - family-names: "Novikov"
+    given-names: "Aleksei"
+repository-code: "https://github.com/AlexNovikov77/propmind-design"
+url: "https://github.com/AlexNovikov77/propmind-design"
+abstract: "Public interface pilot for the PropMind real-estate lifecycle platform. Includes a manual PDF/IFC Evidence Register, human review, history and JSON import/export. This repository does not provide automated engineering validation or the private product core."
+keywords:
+  - real estate
+  - property management
+  - evidence register
+  - BIM
+  - human review
