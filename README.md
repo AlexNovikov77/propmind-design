@@ -1,4 +1,45 @@
-# PropMind · управление жизненным циклом недвижимости
+# PropMind · Evidence Register for buildings
+
+**Свяжите замечание по помещению с источником, проверкой и историей решения.**
+
+**Track a room-related finding, its source, human review and decision history.**
+
+Публичный ручной UI-пилот для технических заказчиков, BIM-координаторов и управляющих объектами. Создайте замечание по PDF или IFC, укажите ревизию и координаты, подтвердите учебную запись и перенесите реестр через JSON. Без регистрации; данные остаются в браузере.
+
+[Демо помещения 706 / Room 706 walkthrough](docs/DEMO.md) · [English quick start](#english-quick-start) · [Архитектура / Architecture](docs/ARCHITECTURE.md) · [Как участвовать / Contributing](CONTRIBUTING.md)
+
+Исходный PDF в этом примере не поставляется; автоматическое чтение документов и проверка инженерных норм ещё не подключены.
+
+## Попробовать за несколько шагов
+
+```bash
+git clone https://github.com/AlexNovikov77/propmind-design.git
+cd propmind-design
+python3 scripts/serve.py
+```
+
+Откройте **http://127.0.0.1:8080/propmind-design/evidence/**. Для запуска достаточно Python 3.10+ и современного браузера; Node.js 22+ нужен для проверок разработчика. Для этой подготовленной редакции до merge переключитесь на ветку `docs/product-citation-20261020`.
+
+1. Создайте учебное замечание «[ДЕМО] Помещение 706 — не указано назначение».
+2. Заполните источник, ревизию и область по [готовому сценарию](docs/DEMO.md).
+3. Подтвердите учебную запись, затем измените её: она вернётся на проверку с сохранением истории.
+4. Нажмите **Экспорт JSON** — получите переносимый реестр с доказательствами и решениями.
+
+[Версия на GitHub Pages](https://alexnovikov77.github.io/propmind-design/evidence/) соответствует опубликованному `main`; содержание этого PR доступно локально до его приёмки. Сценарий не требует регистрации, рабочего доступа к CRM или клиентских документов.
+
+## English quick start
+
+PropMind is a real-estate lifecycle platform in development. This public repository provides a **manual Evidence Register pilot**: record a finding, a PDF page/region or an IFC element ID, source revision, reviewer and decision history. The current UI is in Russian; the [bilingual room walkthrough](docs/DEMO.md) maps the controls to English.
+
+Run the three commands above and open **http://127.0.0.1:8080/propmind-design/evidence/**. Python 3.10+ is sufficient to serve the UI; Node.js 22+ is only needed for developer checks. To reproduce this proposed revision before merge, check out `docs/product-citation-20261020`.
+
+Try a synthetic room-706 finding, review it, change its content and export JSON. The change returns the reviewed finding to draft while retaining its history. The pilot stores data in the current browser's localStorage. It does not upload source documents, parse PDF/IFC, authenticate reviewers or provide shared team storage. Keep customer documents, personal data and credentials out of public Issues and examples.
+
+**Reuse:** no public software license has been granted for this repository. Public visibility and citation do not grant permission to reuse or redistribute the code; contact the owner before reuse. [Citation instructions](docs/CITING.md) identify the author and exact revision.
+
+If this workflow is useful, a GitHub star helps you bookmark the project. More useful feedback is a reproducible issue describing the document workflow, expected result and observed behavior, using synthetic data.
+
+## Направление платформы
 
 Платформа в разработке: от идеи и проектирования до строительства, продаж, аренды и последующей технической и коммерческой эксплуатации. Общая основа — объекты, помещения, оборудование, документы, процессы и проверяемые доказательства.
 
@@ -32,7 +73,7 @@
 
 ## Запуск
 
-Нужны Python 3.10+ и Node.js 22+. У приложения нет runtime-зависимостей и этапа сборки. Playwright — dev-зависимость браузерных проверок, закреплённая в package-lock.json.
+Для локального просмотра нужны Python 3.10+ и браузер. Node.js 22+ требуется для проверок разработчика. У приложения нет runtime-зависимостей и этапа сборки. Playwright — dev-зависимость браузерных проверок, закреплённая в package-lock.json.
 
     git clone https://github.com/AlexNovikov77/propmind-design.git
     cd propmind-design
@@ -84,6 +125,8 @@
 Браузерный сценарий проверяет компьютер и телефон, создание, подтверждение, повторную проверку после редактирования, импорт, восстановление копии, конфликты вкладок и ошибки хранилища. Снимки сохраняются в игнорируемую папку artifacts/.
 
 ## Как вести дальнейшую работу
+
+Публичная видимость репозитория и правила цитирования не предоставляют лицензию на использование или распространение кода. Публичная программная лицензия пока не выдана; условия повторного использования согласуются с владельцем.
 
 Каждая содержательная доработка начинается с задачи, выполняется в отдельной ветке и проходит через PR с проверками. Если запись в GitHub недоступна, подготовленные задачи ведутся в [BACKLOG](docs/BACKLOG.md); выполненное не объявляется опубликованным до проверки main и Pages.
 

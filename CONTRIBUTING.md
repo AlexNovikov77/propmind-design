@@ -1,5 +1,15 @@
 # Как вносить изменения
 
+## Первый полезный вклад / First contribution
+
+Пройдите [сценарий помещения 706](docs/DEMO.md). Если поведение расходится с описанием, сообщите в [существующей очереди Issues](https://github.com/AlexNovikov77/propmind-design/issues): версия/commit, браузер, ширина экрана, шаги, ожидаемый и наблюдаемый результат. Проверьте поиск, чтобы не дублировать задачу. Используйте только вымышленные данные.
+
+Можно начать с проверки английской инструкции, доступности подписей/клавиатурной навигации или воспроизводимого отчёта об ошибке. Перед реализацией нового сценария согласуйте его в существующей связанной задаче: одновременно активны не более двух продуктовых задач. Список возможных вкладов не является постановкой новых продуктовых задач.
+
+Start with the [room-706 walkthrough](docs/DEMO.md). Report a reproducible mismatch with the commit, browser, viewport, steps and expected/actual behavior, using synthetic data. Documentation review and accessibility reports are welcome. Discuss scope before implementing a new feature. No public software license has been granted; agree reuse and contribution terms with the owner before submitting code.
+
+## Цикл изменения
+
 1. Сформулировать конкретный результат и критерии приёмки в GitHub Issue. При временной недоступности записи использовать docs/BACKLOG.md.
 2. Создать ветку от актуального main: feat/…, fix/… или chore/….
 3. Реализовать один понятный результат. Реальные клиентские документы и заполненные реестры в публичный репозиторий не добавлять.
