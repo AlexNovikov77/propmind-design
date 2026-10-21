@@ -8,6 +8,12 @@
 
 [Демо помещения 706 / Room 706 walkthrough](docs/DEMO.md) · [English quick start](#english-quick-start) · [Архитектура / Architecture](docs/ARCHITECTURE.md) · [Как участвовать / Contributing](CONTRIBUTING.md)
 
+[План видимости и обратной связи](docs/COMMUNITY.md) описывает дальнейшие действия после приёмки и публикации.
+
+![Real UI: room 706 finding, human review and return to draft after revision / Реальный UI: замечание по помещению 706 и повторная проверка](docs/media/room-706.gif)
+
+*Кадры браузерной проверки на вымышленных данных: черновик → учебное подтверждение → новая ревизия и повторная проверка. Capture: synthetic data; the current UI is in Russian.*
+
 Исходный PDF в этом примере не поставляется; автоматическое чтение документов и проверка инженерных норм ещё не подключены.
 
 ## Попробовать за несколько шагов
