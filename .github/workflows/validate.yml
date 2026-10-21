@@ -45,11 +45,14 @@ jobs:
         run: |
           python3 scripts/serve.py > /tmp/propmind-server.log 2>&1 &
           node scripts/browser-smoke.mjs
+          node scripts/showcase-room.mjs
       - name: Save synthetic-data screenshots
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: browser-screenshots
-          path: artifacts/*.png
+          path: |
+            artifacts/*.png
+            artifacts/showcase/*.png
           if-no-files-found: ignore
           retention-days: 7
