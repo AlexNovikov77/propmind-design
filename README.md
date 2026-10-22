@@ -10,6 +10,8 @@
 
 [План видимости и обратной связи](docs/COMMUNITY.md) описывает дальнейшие действия после приёмки и публикации.
 
+[Канал PropMind в Telegram](https://t.me/propmind_updates) — практические разборы реестра, учебные шаблоны и обсуждение рабочего процесса.
+
 ![Real UI: room 706 finding, human review and return to draft after revision / Реальный UI: замечание по помещению 706 и повторная проверка](docs/media/room-706.gif)
 
 *Кадры браузерной проверки на вымышленных данных: черновик → учебное подтверждение → новая ревизия и повторная проверка. Capture: synthetic data; the current UI is in Russian.*
