@@ -26,20 +26,20 @@ cd propmind-design
 python3 scripts/serve.py
 ```
 
-Откройте **http://127.0.0.1:8080/propmind-design/evidence/**. Для запуска достаточно Python 3.10+ и современного браузера; Node.js 22+ нужен для проверок разработчика. Для этой подготовленной редакции до merge переключитесь на ветку `docs/product-citation-20261020`.
+Откройте **http://127.0.0.1:8080/propmind-design/evidence/**. Для запуска достаточно Python 3.10+ и современного браузера; Node.js 22+ нужен для проверок разработчика.
 
 1. Создайте учебное замечание «[ДЕМО] Помещение 706 — не указано назначение».
 2. Заполните источник, ревизию и область по [готовому сценарию](docs/DEMO.md).
 3. Подтвердите учебную запись, затем измените её: она вернётся на проверку с сохранением истории.
 4. Нажмите **Экспорт JSON** — получите переносимый реестр с доказательствами и решениями.
 
-[Версия на GitHub Pages](https://alexnovikov77.github.io/propmind-design/evidence/) соответствует опубликованному `main`; содержание этого PR доступно локально до его приёмки. Сценарий не требует регистрации, рабочего доступа к CRM или клиентских документов.
+[Демо на GitHub Pages](https://alexnovikov77.github.io/propmind-design/evidence/) не требует регистрации, рабочего доступа к CRM или клиентских документов. Для задачи эксплуатации попробуйте [ручную сверку повторных обращений](docs/REPEAT_REQUEST_DEMO.md): сравните три учебных заявки и сохраните решение с источником.
 
 ## English quick start
 
 PropMind is a real-estate lifecycle platform in development. This public repository provides a **manual Evidence Register pilot**: record a finding, a PDF page/region or an IFC element ID, source revision, reviewer and decision history. The current UI is in Russian; the [bilingual room walkthrough](docs/DEMO.md) maps the controls to English.
 
-Run the three commands above and open **http://127.0.0.1:8080/propmind-design/evidence/**. Python 3.10+ is sufficient to serve the UI; Node.js 22+ is only needed for developer checks. To reproduce this proposed revision before merge, check out `docs/product-citation-20261020`.
+Run the three commands above and open **http://127.0.0.1:8080/propmind-design/evidence/**. Python 3.10+ is sufficient to serve the UI; Node.js 22+ is only needed for developer checks. For facility management, try the [repeat-request exercise](docs/REPEAT_REQUEST_DEMO.md).
 
 Try a synthetic room-706 finding, review it, change its content and export JSON. The change returns the reviewed finding to draft while retaining its history. The pilot stores data in the current browser's localStorage. It does not upload source documents, parse PDF/IFC, authenticate reviewers or provide shared team storage. Keep customer documents, personal data and credentials out of public Issues and examples.
 
